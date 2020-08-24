@@ -47,22 +47,19 @@
             $('div#response').html('<p>Идет запрос в базу данных... Ждите. <img src="{% static "img/watches.gif" %}" alt=""></p>');
             $('input#button').css('background-color', 'yellow');
             $.ajax({
-          type: "POST",
-          url: "/report/submit",
-          data: $form.serialize(),
-            success: function(resp){
-              $('div#response').html(resp);
-              console.log(resp);
-              $('input#button').css('background-color', 'rgba(45, 172, 121, 0.97)');
-
-          }
-        }).done(function() {
-          console.log('success');
-        }).fail(function() {
-          console.log('fail');
-        });
+                type: "POST",
+                url: "/report/submit",
+                data: $form.serialize(),
+                success: function(resp){
+                    $('div#response').html(resp);
+                    $('input#button').css('background-color', 'rgba(45, 172, 121, 0.97)');
+                }
+            }).done(function() {
+                console.log('success');
+            }).fail(function() {
+                console.log('fail');
+            });
         }
-
         e.preventDefault();
       });
     });
