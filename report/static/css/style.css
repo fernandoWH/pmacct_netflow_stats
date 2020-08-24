@@ -1,0 +1,51 @@
+img {
+    width: 30px;
+}
+
+
+
+
+form {
+    overflow:auto;
+    width: 50%;
+}
+
+form p {
+    padding: 10px;
+    overflow:auto;
+}
+
+input {
+    float: right;
+    width: 50%;
+    padding: 1px;
+}
+
+select {
+    float: right;
+    width: 50.7%;
+    padding: 2px;
+}
+
+#button {
+    margin-right: 25%;
+    background-color: rgba(45, 172, 121, 0.97);
+}
+
+#button:hover
+{
+    cursor: pointer;
+}
+
+
+TABLE {
+    width: 70%;
+    background-color: #141619;
+    color: white;
+}
+
+TD {
+    background-color: rgba(45, 172, 121, 0.97);
+    padding: 8px 25px 8px 25px;
+    text-align: center;
+}

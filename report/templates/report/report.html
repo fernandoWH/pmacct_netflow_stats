@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Netflow Collector Reports</title>
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+</head>
+<body>
+<h2>Генерация отчета по потребителям трафика</h2>
+
+
+<form id="form">
+    <p><b>Заполните форму, чтобы сформировать отчет</b></p>
+    <p> Номер зоны (целое число)<input type="number" name="zone"  min="1" max="999" required></p>
+    <p> День недели<select name="day" form="form">
+            <option value="1">Понедельник</option>
+            <option value="2">Вторник</option>
+            <option value="3">Среда</option>
+            <option value="4">Четверг</option>
+            <option value="5">Пятница</option>
+            <option value="6">Суббота</option>
+            <option value="0">Воскресение</option>
+        </select></p>
+    <p>   Время начала периода (hh:mm)<input type="text" name="timeon"  pattern="^[0-9]{2}:[0-9]{2}$" required></p>
+    <p>   Время окончания периода (hh:mm)<input type="text" name="timeoff" pattern="^[0-9]{2}:[0-9]{2}$" required></p>
+
+    <p><input id="button" type="submit" value="Отправить"></p>
+ </form>
+
+
+<div id="response">
+</div>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<script type="application/javascript">
+    $(function() {
+      $('form').submit(function(e) {
+        let $form = $(this);
+
+        if ($('input#button').css('background-color') == 'rgba(45, 172, 121, 0.97)') {
+            $('div#response').html('<p>Идет запрос в базу данных... Ждите. <img src="{% static "img/watches.gif" %}" alt=""></p>');
+            $('input#button').css('background-color', 'yellow');
+            $.ajax({
+          type: "POST",
+          url: "/report/submit",
+          data: $form.serialize(),
+            success: function(resp){
+              $('div#response').html(resp);
+              console.log(resp);
+              $('input#button').css('background-color', 'rgba(45, 172, 121, 0.97)');
+
+          }
+        }).done(function() {
+          console.log('success');
+        }).fail(function() {
+          console.log('fail');
+        });
+        }
+
+        e.preventDefault();
+      });
+    });
+
+</script>
+
+</body>
+</html>
